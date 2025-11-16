@@ -1,141 +1,243 @@
-.page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
-  display: flex;
+.shell {
   min-height: 100vh;
-  align-items: center;
-  justify-content: center;
+  padding: 60px 20px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  transition: background 0.3s ease;
   font-family: var(--font-geist-sans);
-  background-color: var(--background);
 }
 
-.main {
+.paper {
+  background: #f5f5f5;
+}
+
+.night {
+  background: #000000;
+}
+
+/* 전체 폭 기준 가운데 정렬 느낌 맞추려고 shell에서도 살짝 보정 */
+.shell {
+  align-items: stretch;
+}
+
+.header {
+  width: min(1100px, 100%);
+  margin: 0 auto 8px;
   display: flex;
-  min-height: 100vh;
-  width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+  justify-content: flex-end;
+  color: #1a1a1a;
 }
 
-.intro {
+.night .header {
+  color: #f3f3f3;
+}
+
+.meta {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
-}
-
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
-}
-
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
-}
-
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.ctas {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
-}
-
-.ctas a {
-  display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
-  cursor: pointer;
-  width: fit-content;
+  gap: 18px;
   font-weight: 500;
 }
 
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
+.themeToggle {
+  display: inline-flex;
   gap: 8px;
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+.themeToggle button {
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 6px 16px;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
+.night .themeToggle button {
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #f3f3f3;
+}
+
+.themeToggle button.active {
+  background: #111;
+  color: #fff;
+}
+
+.night .themeToggle button.active {
+  background: #fff;
+  color: #000;
+}
+
+/* ⬇⬇ 여기 수정: stage 폭을 100%로 풀고, 안에서 가운데 정렬 */
+.stage {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* 가로 중앙 */
+  gap: 18px;
+}
+
+/* ⬇⬇ 여기 수정: book을 화면 기준 가운데 + 고정 max-width */
+.book {
+  position: relative;
+  width: 100%;                     /* 부모(stage) 폭을 따라가고 */
+  max-width: 1200px;               /* 최대 1200px까지만 커지게 */
+  margin: 0 auto;                  /* 양쪽 여백 자동 → 정중앙 */
+  padding: 36px 48px;
+  border-radius: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.55),
+    rgba(0, 0, 0, 0.04)
+  );
+  box-shadow: 0 50px 110px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.night .book {
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.09),
+    rgba(0, 0, 0, 0.6)
+  );
+  box-shadow: 0 60px 120px rgba(0, 0, 0, 0.75);
+}
+
+.page {
+  position: relative;
+  width: 100%;
+  max-height: calc(100vh - 230px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pageInner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageWrap {
+  max-width: 1100px;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 표지 전용 래퍼 – 이거 크기만 조절하면 표지만 바뀜 */
+.coverImageWrap {
+  max-width: 620px;       /* 필요하면 여기 숫자만 살짝씩 줄이거나 늘려 */
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageWrap img,
+.coverImageWrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.blankPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-weight: 600;
+  opacity: 0.4;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}
+
+.slideNext {
+  animation: slideNext 0.2s ease forwards;
+}
+
+.slidePrev {
+  animation: slidePrev 0.2s ease forwards;
+}
+
+@keyframes slideNext {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-20%);
+    opacity: 0;
+  }
+}
+
+@keyframes slidePrev {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(20%);
+    opacity: 0;
+  }
+}
+
+.helperText {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: rgba(26, 26, 26, 0.7);
+}
+
+.night .helperText {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.error {
+  text-align: center;
+  margin-bottom: 18px;
+  color: #a40000;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .book {
+    padding: 24px 18px;
   }
 
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
+  .page {
+    max-height: calc(100vh - 200px);
+  }
+
+  .imageWrap {
+    max-width: 100%;
+  }
+
+  .coverImageWrap {
+    max-width: 75%;
   }
 }
 
 @media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
+  .book {
+    padding: 20px 14px;
   }
 
   .page {
-    --background: #000;
-    --foreground: #000;
+    max-height: calc(100vh - 180px);
+  }
 
-    --text-primary: #ededed;
-    --text-secondary: #999;
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
+  .coverImageWrap {
+    max-width: 80%;
   }
 }
