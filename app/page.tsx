@@ -21,6 +21,7 @@ type PageProps = {
 
 const COVER_PATH = "/books/cover.jpg";
 const FAIRYTALE_PATH = "/books/smallstory2.pdf";
+const LOADING_IMAGE_PATH = "/books/loading.png";
 const ANIMATION_DURATION = 260;
 
 export default function Home() {
@@ -187,8 +188,18 @@ export default function Home() {
 
       <section className={styles.stage} onClick={handleTap}>
         {loading && (
-          <p className={styles.helperText}>Preparing illustrated pages…</p>
+          <div className={styles.loadingOverlay}>
+            <div className={styles.loadingInner}>
+              <img
+                src={LOADING_IMAGE_PATH}
+                alt="Loading"
+                className={styles.loadingImage}
+              />
+              <p className={styles.loadingText}>Loading…</p>
+            </div>
+          </div>
         )}
+
         {error && <p className={styles.error}>{error}</p>}
 
         <div className={styles.book}>
@@ -214,16 +225,14 @@ export default function Home() {
 }
 
 function PageContent({ page, loading }: PageProps) {
-  if (loading) return <span className={styles.blankPage}>Loading…</span>;
+  if (loading) return null; 
   if (!page) return <span className={styles.blankPage}>No more pages</span>;
 
   const isCover = page.isCover === true;
 
   return (
     <div className={styles.pageInner}>
-      <div
-        className={isCover ? styles.coverImageWrap : styles.imageWrap}
-      >
+      <div className={isCover ? styles.coverImageWrap : styles.imageWrap}>
         <img src={page.dataUrl} alt={`Page ${page.id}`} />
       </div>
     </div>

@@ -140,8 +140,8 @@
 .coverImageWrap img {
   width: auto;
   height: auto;
-  max-height: 88vh;   
-  max-width: 70%;     
+  max-height: 88vh;
+  max-width: 80%;
   display: block;
 }
 
@@ -154,6 +154,40 @@
   opacity: 0.4;
   text-transform: uppercase;
   letter-spacing: 0.2rem;
+}
+
+.loadingOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+}
+
+.night .loadingOverlay {
+  background: #000000;
+}
+
+.loadingInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.loadingImage {
+  width: min(350px, 60vw);
+  height: auto;
+  display: block;
+}
+
+.loadingText {
+  margin-top: 4px;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
 }
 
 .slideNext {
