@@ -1,3 +1,4 @@
+
 .shell {
   min-height: 100vh;
   padding: 60px 20px 100px;
@@ -14,11 +15,6 @@
 
 .night {
   background: #000000;
-}
-
-/* 전체 폭 기준 가운데 정렬 느낌 맞추려고 shell에서도 살짝 보정 */
-.shell {
-  align-items: stretch;
 }
 
 .header {
@@ -71,23 +67,21 @@
   color: #000;
 }
 
-/* ⬇⬇ 여기 수정: stage 폭을 100%로 풀고, 안에서 가운데 정렬 */
 .stage {
-  width: 100%;
+  width: min(1200px, 100%);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;   /* 가로 중앙 */
+  align-items: center;
   gap: 18px;
 }
 
-/* ⬇⬇ 여기 수정: book을 화면 기준 가운데 + 고정 max-width */
 .book {
   position: relative;
-  width: 100%;                     /* 부모(stage) 폭을 따라가고 */
-  max-width: 1200px;               /* 최대 1200px까지만 커지게 */
-  margin: 0 auto;                  /* 양쪽 여백 자동 → 정중앙 */
-  padding: 36px 48px;
+  width: 1100px;
+  max-width: 90vw;
+  margin: 0 auto;
+  padding: 40px 50px;
   border-radius: 0;
   background: linear-gradient(
     160deg,
@@ -112,7 +106,7 @@
 .page {
   position: relative;
   width: 100%;
-  max-height: calc(100vh - 230px);
+  max-height: calc(100vh - 240px);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -127,27 +121,37 @@
   justify-content: center;
 }
 
+/* 내지 페이지 이미지 */
 .imageWrap {
-  max-width: 1100px;
+  max-width: 100%;
   max-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* 표지 전용 래퍼 – 이거 크기만 조절하면 표지만 바뀜 */
-.coverImageWrap {
-  max-width: 620px;       /* 필요하면 여기 숫자만 살짝씩 줄이거나 늘려 */
-  max-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.imageWrap img,
-.coverImageWrap img {
-  width: 100%;
+.imageWrap img {
+  width: auto;
+  max-width: 100%;
   height: auto;
+  max-height: 88vh;
+  display: block;
+}
+
+/* 표지 이미지 */
+.coverImageWrap {
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coverImageWrap img {
+  width: auto;
+  height: auto;
+  max-height: 88vh;   
+  max-width: 70%;     
   display: block;
 }
 
@@ -212,32 +216,30 @@
 
 @media (max-width: 900px) {
   .book {
-    padding: 24px 18px;
-  }
-
-  .page {
-    max-height: calc(100vh - 200px);
-  }
-
-  .imageWrap {
-    max-width: 100%;
-  }
-
-  .coverImageWrap {
-    max-width: 75%;
-  }
-}
-
-@media (max-width: 600px) {
-  .book {
-    padding: 20px 14px;
+    padding: 30px 20px;
   }
 
   .page {
     max-height: calc(100vh - 180px);
   }
 
-  .coverImageWrap {
-    max-width: 80%;
+  .imageWrap img,
+  .coverImageWrap img {
+    max-height: 80vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .book {
+    padding: 24px 14px;
+  }
+
+  .page {
+    max-height: calc(100vh - 160px);
+  }
+
+  .imageWrap img,
+  .coverImageWrap img {
+    max-height: 75vh;
   }
 }
